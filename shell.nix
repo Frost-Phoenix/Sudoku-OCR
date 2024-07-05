@@ -1,0 +1,10 @@
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  buildInputs = with pkgs;  [ 
+    gnumake
+    gcc
+    # raylib
+    clang-tools
+  ];
+}
