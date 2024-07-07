@@ -8,6 +8,7 @@
 int solver_load_board(board_t* board, const char* path) {
     return 0;
 }
+
 int solver_solve(board_t* board) {
     return 0;
 }
@@ -25,7 +26,7 @@ void solver_print_board(board_t* board) {
         }
         if (i != 8) {
             printf(i % 3 == 2 ? "\n╠═══╪═══╪═══╬═══╪═══╪═══╬═══╪═══╪═══╣\n"
-                : "\n╟───┼───┼───╫───┼───┼───╫───┼───┼───╢\n");
+                              : "\n╟───┼───┼───╫───┼───┼───╫───┼───┼───╢\n");
         }
     }
     printf("\n╚═══╧═══╧═══╩═══╧═══╧═══╩═══╧═══╧═══╝\n");

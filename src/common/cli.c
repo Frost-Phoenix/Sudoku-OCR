@@ -7,20 +7,22 @@ void cli_set_buffred_inputs(int enable) {
     struct termios new;
 
     if (enable && !enabled) {
-        tcsetattr(STDIN_FILENO, TCSANOW,
-                  &old);           /* restore the former settings */
-        printf("\033[?25h\033[m"); /* make cursor visible, reset all modes */
+        /* restore the former settings */
+        tcsetattr(STDIN_FILENO, TCSANOW, &old);
+        /* make cursor visible, reset all modes */
+        printf("\033[?25h\033[m");
         enabled = 1;
     } else if (!enable && enabled) {
-        tcgetattr(STDIN_FILENO,
-                  &new); /* get the terminal settings for standard input */
-        printf("\033[?25l\033[2J"); /* make cursor invisible, clear screen */
-        old = new; /* keep old setting to restore them at the end */
-        new.c_lflag &=
-            (~ICANON & ~ECHO); /* disable canonical mode (buffeRED_CLI i/o) and
-                                  local echo */
-        tcsetattr(STDIN_FILENO, TCSANOW,
-                  &new); /* set the new settings immediately */
+        /* get the terminal settings for standard input */
+        tcgetattr(STDIN_FILENO, &new);
+        /* make cursor invisible, clear screen */
+        printf("\033[?25l\033[2J");
+        /* keep old setting to restore them at the end */
+        old = new;
+        /* disable canonical mode (buffeRED_CLI i/o) and local echo */
+        new.c_lflag &= (~ICANON & ~ECHO);
+        /* set the new settings immediately */
+        tcsetattr(STDIN_FILENO, TCSANOW, &new);
         enabled = 0;
     }
 }
