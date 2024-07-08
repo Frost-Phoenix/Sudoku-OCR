@@ -5,8 +5,9 @@
 #include "../include/common/common.h"
 
 
-int solver_load_board(board_t* board, const char* path);
+void solver_load_board(board_t* board, const char* path);
 int solver_solve(board_t* board);
+int solver_save_file(board_t* board, const char* path);
 
 void solver_print_board(board_t* board);
 

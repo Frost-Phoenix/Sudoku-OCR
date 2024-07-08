@@ -4,13 +4,19 @@
 #include "../include/solver/solver.h"
 
 
-int main(void) {
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        print_err("Solver", "usage %s <file_name>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
     board_t board = {
         .size = BOARD_SIZE,
-        .cells = { 0 },
+        .cells = { { 0 } },
     };
 
+    solver_load_board(&board, argv[1]);
     solver_print_board(&board);
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }

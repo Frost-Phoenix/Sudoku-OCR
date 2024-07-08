@@ -6,6 +6,13 @@
 #include <stdlib.h>
 
 
+#define TRUE  1
+#define FALSE 0
+
+#define print_err(NAME, FORMAT, ...)                                 \
+    fprintf(stderr, "[\033[31mERROR\033[0m] %s: " FORMAT "\n", NAME, \
+            ##__VA_ARGS__)
+
 #define BOARD_SIZE 9
 
 
