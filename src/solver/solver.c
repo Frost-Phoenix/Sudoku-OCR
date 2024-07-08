@@ -103,6 +103,7 @@ void solver_load_board(board_t* board, const char* path) {
 // }
 
 void solver_print_board(board_t* board) {
+    cli_dimmed();
     printf("╔═══╤═══╤═══╦═══╤═══╤═══╦═══╤═══╤═══╗\n");
     for (size_t i = 0; i < board->size; i++) {
         printf("║");
@@ -111,7 +112,10 @@ void solver_print_board(board_t* board) {
             if (digit == '0') {
                 digit = ' ';
             }
-            printf(j % 3 == 2 ? " %c ║" : " %c │", digit);
+            cli_reset();
+            printf(" %c ", digit);
+            cli_dimmed();
+            printf(j % 3 == 2 ? "║" : "│");
         }
         if (i != 8) {
             printf(i % 3 == 2 ? "\n╠═══╪═══╪═══╬═══╪═══╪═══╬═══╪═══╪═══╣\n"
