@@ -5,6 +5,6 @@
  *                 Public functions                   *
  ******************************************************/
 
-int solver_solve(board_t* board) {
+int solver_save_file(board_t* board) {
     return 0;
 }

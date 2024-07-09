@@ -2,7 +2,7 @@
 #define SOLVER_H
 
 
-#include "../include/common/common.h"
+#include "../include/common/types.h"
 
 
 void solver_load_board(board_t* board, const char* path);

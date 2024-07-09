@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../include/common/common.h"
+#include "../include/common/macros.h"
 #include "../include/solver/solver.h"
 
 
