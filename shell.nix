@@ -6,6 +6,7 @@ pkgs.mkShell {
     gcc
     # raylib
     clang-tools
+    criterion
   ];
 }
 
