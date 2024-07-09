@@ -3,6 +3,8 @@ SRC_DIR := ./src
 INCLUDE_DIR := ./include
 BIN_DIR := ./bin
 OBJ_DIR := ./obj
+TESTS_DIR := ./tests
+TEST_BIN_DIR := ./tests/bin
 
 # Subdirectories
 COMMON_DIR := common
@@ -31,14 +33,19 @@ IMAGE_PROC_BIN := $(BIN_DIR)/image_processing
 NETWORK_BIN := $(BIN_DIR)/network
 SOLVER_BIN := $(BIN_DIR)/solver
 
+# Test Files
+SOLVER_TEST_FILES := $(wildcard $(TESTS_DIR)/$(SOLVER_DIR)/*.c)
+SOLVER_TEST_BIN := $(patsubst $(TESTS_DIR)/$(SOLVER_DIR)/%.c, $(TEST_BIN_DIR)/$(SOLVER_DIR)/%, $(SOLVER_TEST_FILES))
+
 # Compiler and flags
 CSTD = c99
 CC := gcc
 CFLAGS := -std=$(CSTD) -Wall -Wextra # -Werror -Wpedantic
 LIBS := 
+TEST_LIBS := -lcriterion -lm
 
 # Targets
-.PHONY: all gui image_processing network solver format clean
+.PHONY: all gui image_processing network solver format clean test
 
 all: $(GUI_BIN) $(IMAGE_PROC_BIN) $(NETWORK_BIN) $(SOLVER_BIN)
 
@@ -90,11 +97,20 @@ $(OBJ_DIR)/$(SOLVER_DIR):
 $(BIN_DIR):
 	mkdir -p $@
 
+$(TEST_BIN_DIR)/$(SOLVER_DIR):
+	mkdir -p $@
+
+# Test rules
+$(TEST_BIN_DIR)/$(SOLVER_DIR)/%: $(TESTS_DIR)/$(SOLVER_DIR)/%.c $(COMMON_OBJ_FILES) | $(TEST_BIN_DIR)/$(SOLVER_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR) $< $(COMMON_OBJ_FILES) -o $@ $(TEST_LIBS)
+
 solver: $(SOLVER_BIN)
+
+test: $(SOLVER_TEST_BIN)
+	@for test in $(SOLVER_TEST_BIN); do ./$$test --verbose && echo; done
 
 format:
 	find . -iname '*.h' -o -iname '*.c' | xargs clang-format --style=file -i
 
-# Clean
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(BIN_DIR) $(TEST_BIN_DIR)
