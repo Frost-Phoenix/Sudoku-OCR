@@ -27,8 +27,18 @@ static int _row_contains(board_t* board, size_t row, uint8_t nb) {
 }
 
 static int _box_contains(board_t* board, size_t row, size_t col, uint8_t nb) {
-    // todo
-    return TRUE;
+    size_t start_row = (row / 3) * 3;
+    size_t start_col = (col / 3) * 3;
+
+    for (size_t r = start_row; r < start_row + 3; r++) {
+        for (size_t c = start_col; c < start_col + 3; c++) {
+            if (board->cells[r][c] == nb) {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 /******************************************************
