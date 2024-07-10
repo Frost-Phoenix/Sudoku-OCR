@@ -106,7 +106,7 @@ $(TEST_BIN_DIR)/$(SOLVER_DIR)/%: $(TESTS_DIR)/$(SOLVER_DIR)/%.c $(COMMON_OBJ_FIL
 
 solver: $(SOLVER_BIN)
 
-test: $(SOLVER_TEST_BIN)
+test: clean $(SOLVER_TEST_BIN)
 	@for test in $(SOLVER_TEST_BIN); do ./$$test --verbose && echo; done
 
 format:
