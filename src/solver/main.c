@@ -10,17 +10,14 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    board_t board = {
-        .size = BOARD_SIZE,
-        .cells = { { 0 } },
-        .base_cells = { { 0 } },
-    };
-
+    board_t board;
     solver_load_board(&board, argv[1]);
     if (!solver_solve(&board)) {
         print_err("Solver", "given board has no solution");
+        exit(EXIT_FAILURE);
     }
     solver_print_board(&board);
+    solver_save_board(&board);
 
     exit(EXIT_SUCCESS);
 }
