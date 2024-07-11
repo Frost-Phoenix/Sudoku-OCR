@@ -12,6 +12,10 @@ void load_board_0() {
     solver_load_board(&board, "./boards/easy/grid_000");
 }
 
+void load_board_4() {
+    solver_load_board(&board, "./boards/easy/grid_004");
+}
+
 void setup(void) {
     board = (board_t){
         .size = 9,
@@ -47,4 +51,28 @@ Test(solver, box_contains, .init = setup, .fini = teardown) {
     cr_expect(_box_contains(&board, 6, 8, 3) == true);
     cr_expect(_box_contains(&board, 6, 8, 5) == false);
     cr_expect(_box_contains(&board, 6, 8, 8) == false);
+    cr_expect(_box_contains(&board, 3, 8, 1) == true);
+}
+
+Test(solver, can_assing, .init = setup, .fini = teardown) {
+    load_board_0();
+    cr_expect(_can_assing(&board, 0, 0, 1) == true);
+    cr_expect(_can_assing(&board, 3, 8, 1) == false);
+    cr_expect(_can_assing(&board, 6, 5, 3) == false);
+    cr_expect(_can_assing(&board, 8, 4, 6) == true);
+    cr_expect(_can_assing(&board, 5, 2, 1) == true);
+}
+
+Test(solver, first_empty_cell, .init = setup, .fini = teardown) {
+    size_t row, col;
+
+    load_board_0();
+    _first_empty_cell(&board, &row, &col);
+    cr_expect(row == 0);
+    cr_expect(col == 0);
+
+    load_board_4();
+    _first_empty_cell(&board, &row, &col);
+    cr_expect(row == 0);
+    cr_expect(col == 2);
 }
