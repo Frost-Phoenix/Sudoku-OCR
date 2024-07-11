@@ -10,22 +10,26 @@
  ******************************************************/
 
 void solver_print_board(board_t* board) {
-    cli_dimmed();
     printf("╔═══╤═══╤═══╦═══╤═══╤═══╦═══╤═══╤═══╗\n");
-    for (size_t i = 0; i < board->size; i++) {
+    for (size_t r = 0; r < board->size; r++) {
         printf("║");
-        for (size_t j = 0; j < board->size; j++) {
-            char digit = board->cells[i][j] + 48;
+        for (size_t c = 0; c < board->size; c++) {
+            char digit = board->cells[r][c] + 48;
             if (digit == '0') {
                 digit = ' ';
             }
             cli_reset();
+            if (board->base_cells[r][c] == 0) {
+                cli_set_fg(CLI_GREEN);
+            } else {
+                cli_set_fg(CLI_BLUE);
+            }
             printf(" %c ", digit);
-            cli_dimmed();
-            printf(j % 3 == 2 ? "║" : "│");
+            cli_reset();
+            printf(c % 3 == 2 ? "║" : "│");
         }
-        if (i != 8) {
-            printf(i % 3 == 2 ? "\n╠═══╪═══╪═══╬═══╪═══╪═══╬═══╪═══╪═══╣\n"
+        if (r != 8) {
+            printf(r % 3 == 2 ? "\n╠═══╪═══╪═══╬═══╪═══╪═══╬═══╪═══╪═══╣\n"
                               : "\n╟───┼───┼───╫───┼───┼───╫───┼───┼───╢\n");
         }
     }

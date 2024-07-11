@@ -98,5 +98,7 @@ void solver_load_board(board_t* board, const char* path) {
         _error_wrong_format();
     }
 
+    memcpy(board->base_cells, board->cells, sizeof(char) * NB_CELLS);
+
     fclose(file);
 }
