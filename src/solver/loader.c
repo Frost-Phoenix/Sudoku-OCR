@@ -44,6 +44,9 @@ void solver_load_board(board_t* board, const char* path) {
     char line_buffer[13]; /* 13: 11 character + \n + \0 */
     size_t file_len;
 
+    board->path = path;
+    board->size = BOARD_SIZE;
+
     /* open file */
     file = fopen(path, "r");
     if (file == NULL) {

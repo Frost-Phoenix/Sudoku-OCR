@@ -7,7 +7,7 @@
 
 void solver_load_board(board_t* board, const char* path);
 int solver_solve(board_t* board);
-int solver_save_file(board_t* board, const char* path);
+int solver_save_board(board_t* board);
 
 void solver_print_board(board_t* board);
 
