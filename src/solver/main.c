@@ -17,6 +17,8 @@ int main(int argc, char* argv[]) {
 
     solver_load_board(&board, argv[1]);
     solver_print_board(&board);
+    solver_solve(&board);
+    solver_print_board(&board);
 
     exit(EXIT_SUCCESS);
 }
