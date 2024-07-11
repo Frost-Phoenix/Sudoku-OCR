@@ -5,3 +5,4 @@ ref
 *.pdf
 *.txt
 obj
+*.result
